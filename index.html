@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIU Guaraní - Validador de Certificados</title>
+  <link rel="icon" href="https://certificados.unlam.edu.ar/certificados/_comp/siu/img/favicon.ico" type="image/png">
+  <style>
+    html,body{margin:0;padding:0;background:#fff;color:#333;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:20px}
+    .container{width:940px;margin-left:auto;margin-right:auto}
+    .row-fluid{width:100%;*zoom:1}.row-fluid:before,.row-fluid:after{display:table;line-height:0;content:""}.row-fluid:after{clear:both}
+    .row-fluid [class*="span"]{display:block;float:left;width:100%;min-height:30px;margin-left:2.127659574%;box-sizing:border-box}
+    .row-fluid [class*="span"]:first-child{margin-left:0}.row-fluid .span12{width:100%}.row-fluid .span9{width:74.468085106%}.row-fluid .span3{width:23.404255319%}
+    .span6{width:460px;float:left;min-height:1px;margin-left:20px}.row .span6:first-child{margin-left:0}
+    .brand-nav{padding:12px 0 8px;background:#fff}.brand img{max-height:66px;max-width:230px;border:0}
+    .navbar{margin-bottom:20px;overflow:visible}.navbar-inner{min-height:40px;padding:0 20px;background:#2b6f8c;border:1px solid #1e566d;box-shadow:0 1px 4px rgba(0,0,0,.18)}
+    .titulo_operacion{margin:12px 0 18px}.titulo_operacion h2{font-size:26px;line-height:30px;font-weight:normal;margin:10px 0}
+    .alert{padding:8px 35px 8px 14px;margin-bottom:20px;text-shadow:0 1px 0 rgba(255,255,255,.5);border:1px solid #fbeed5;border-radius:4px}
+    .alert-info{color:#3a87ad;background:#d9edf7;border-color:#bce8f1}
+    .alert-success{color:#468847;background:#dff0d8;border-color:#d6e9c6}
+    .control-group{margin-bottom:10px}.control-label{display:block;margin-bottom:5px}
+    .controls input[type="text"]{display:inline-block;height:20px;padding:4px 6px;margin-bottom:10px;font-size:14px;line-height:20px;color:#555;border:1px solid #ccc;border-radius:4px;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}
+    .btn{display:inline-block;padding:4px 12px;margin-bottom:0;font-size:14px;line-height:20px;text-align:center;vertical-align:middle;cursor:pointer;color:#333;background:#f5f5f5;border:1px solid #bbb;border-radius:4px;text-decoration:none}
+    .btn-info{color:#fff;background:#49afcd;border-color:#2f96b4}.btn-primary{color:#fff;background:#006dcc;border-color:#04c}.btn-large{padding:11px 19px;font-size:17.5px;border-radius:6px}
+    .hero-unit{padding:60px;margin-bottom:30px;background:#eee;border-radius:6px}.hero-unit h1{margin:0 0 20px;font-size:60px;line-height:1;letter-spacing:-1px;color:inherit}
+    footer{margin-top:30px;padding:20px 0;border-top:1px solid #eee}
+    @media(max-width:979px){.container{width:auto;margin:0 20px}.hero-unit{padding:30px}.hero-unit h1{font-size:42px}}
+    .brand-nav { min-height: 120px !important; }
+    .brand { display:block !important; }
+    .brand img { max-width:none !important; max-height:none !important; }
+    .control-group.error .control-label,
+    .control-group.error .help-block { color:#b94a48 !important; }
+    .control-group.error input[type="text"] { border-color:#b94a48 !important; box-shadow:inset 0 1px 1px rgba(0,0,0,.075) !important; }
+    .control-group.error input[type="text"]:focus { border-color:#953b39 !important; box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #d59392 !important; }
+    .help-block { display:block; margin:5px 0 10px; }
+  </style>
+</head>
+<body>
+  <div class="brand-nav">
+    <div class="container">
+      <div class="row-fluid">
+        <div class="span3">
+          <a class="brand" href="https://certificados.unlam.edu.ar/certificados/validador_certificados">
+            <img src="data:image/png;base64,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" alt="UNLaM" style="width:110px;height:110px;display:block;border:0;">
+          </a>
+        </div>
+        <div class="span9"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="navbar main-nav">
+    <div class="navbar-inner">
+      <div class="container">
+        <div role="navigation"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="kernel_contenido" class="container">
+    <div class="titulo_operacion row-fluid">
+      <div class="span12">
+        <h2>Validador de Certificados</h2>
+      </div>
+    </div>
+
+    <div id="layout_una_columna" class="row-fluid">
+      <div id="columna_1" class="span12">
+        <div id="validador" class="pagelet" style="display:block;clear:both;">
+          <div class="alert alert-info">Ingrese el <strong>Número de Documento</strong>, y luego el <strong>Código de Validación</strong> impreso en el certificado.</div>
+          <form method="post" action="https://certificados.unlam.edu.ar/certificados/validador_certificados/validar" id="guarani_form_validar">
+            <div id="control_group_documento" class="control-group">
+              <label class="control-label" for="documento">Número de Documento</label>
+              <div class="controls">
+                <input id="documento" name="documento" type="text" value="">
+              </div>
+            </div>
+            <div id="control_group_codigo_valid" class="control-group">
+              <label class="control-label" for="codigo_valid">Código de Validación</label>
+              <div class="controls">
+                <input id="codigo_valid" name="codigo_valid" type="text" value="" maxlength="14">
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <input id="validar" name="validar" type="submit" value="Validar" class="btn btn-info">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="span6"><div id="copyleft"></div></div>
+        <div class="span6"><div id="copyright"></div></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      function limpiarError(grupo) {
+        if (!grupo) return;
+        grupo.className = grupo.className.replace(/\berror\b/g, '').replace(/\s+/g, ' ').trim();
+        var anteriores = grupo.querySelectorAll('.help-block.validacion-local');
+        for (var i = 0; i < anteriores.length; i++) anteriores[i].parentNode.removeChild(anteriores[i]);
+      }
+
+      function marcarError(grupo, mensaje) {
+        if (!grupo) return;
+        if (!/\berror\b/.test(grupo.className)) grupo.className += ' error';
+        var controls = grupo.querySelector('.controls') || grupo;
+        var aviso = document.createElement('span');
+        aviso.className = 'help-block validacion-local';
+        aviso.appendChild(document.createTextNode(mensaje));
+        controls.appendChild(aviso);
+      }
+
+      document.addEventListener('submit', function (e) {
+        var form = e.target;
+        if (!form || form.id !== 'guarani_form_validar') return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        var documento = document.getElementById('documento');
+        var codigo = document.getElementById('codigo_valid');
+        var grupoDocumento = document.getElementById('control_group_documento');
+        var grupoCodigo = document.getElementById('control_group_codigo_valid');
+
+        limpiarError(grupoDocumento);
+        limpiarError(grupoCodigo);
+
+        var faltaDocumento = !documento || documento.value.replace(/^\s+|\s+$/g, '') === '';
+        var faltaCodigo = !codigo || codigo.value.replace(/^\s+|\s+$/g, '') === '';
+
+        if (faltaDocumento) marcarError(grupoDocumento, 'Debe ingresar el documento.');
+        if (faltaCodigo) marcarError(grupoCodigo, 'Debe ingresar el código de validación.');
+
+        if (faltaDocumento || faltaCodigo) {
+          if (faltaDocumento && documento) documento.focus();
+          else if (faltaCodigo && codigo) codigo.focus();
+          return false;
+        }
+
+        var contenedor = document.getElementById('validador');
+        if (!contenedor) return false;
+        contenedor.innerHTML =
+          '<div class="hero-unit">' +
+            '<h1>Certificado Válido</h1>' +
+            '<div id="descripcion" class="alert alert-block alert-success">Certificado es válido y está vigente.</div>' +
+            '<p><a href="#" id="volver_local" class="btn btn-primary btn-large">Volver</a></p>' +
+          '</div>';
+        window.scrollTo(0, 0);
+        return false;
+      }, true);
+
+      document.addEventListener('click', function (e) {
+        if (e.target && e.target.id === 'volver_local') {
+          e.preventDefault();
+          window.location.reload();
+        }
+      }, true);
+    })();
+  </script>
+</body>
+</html>
